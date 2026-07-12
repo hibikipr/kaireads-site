@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kai Reads — Space Phonics &amp; Reading Fun for Kids</title>
+<meta name="description" content="Kai Reads is a kid-safe iPhone & iPad reading game. Sound out words, build spelling, catch sight words, and read space stories across four planets. No ads, no in-app purchases.">
+<meta property="og:title" content="Kai Reads — Space Phonics & Reading Fun">
+<meta property="og:description" content="A reading adventure across four planets. Phonics, spelling, sight words & stories — no ads, ever.">
+<meta property="og:image" content="https://kaireads.townsville.cc/assets/01-galaxy-map.png">
+<link rel="icon" type="image/png" href="assets/app-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-top: #141B45;
+    --bg-mid: #0A0F2E;
+    --bg-bottom: #070B1E;
+    --text: #F2F4FF;
+    --text-2: rgba(242, 244, 255, 0.65);
+    --text-3: rgba(242, 244, 255, 0.5);
+    --cyan: #7EE7FF;
+    --cyan-light: #B7F0FF;
+    --purple: #C792FF;
+    --gold: #FFD166;
+    --red: #FF6B6B;
+    --mint: #7EF0C3;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Fredoka", system-ui, sans-serif;
+    color: var(--text);
+    background: radial-gradient(ellipse 120% 80% at 30% 0%, var(--bg-top), var(--bg-mid) 55%, var(--bg-bottom));
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .stars {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  }
+  .stars span {
+    position: absolute; width: 3px; height: 3px; border-radius: 50%;
+    background: #DDE8FF; opacity: 0.5;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+  @keyframes twinkle { 0%,100% { opacity: 0.2; } 50% { opacity: 0.7; } }
+  main { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  header { text-align: center; padding: 72px 0 40px; }
+  header img.icon {
+    width: 140px; height: 140px; border-radius: 32px;
+    box-shadow: 0 12px 48px rgba(126, 231, 255, 0.25);
+  }
+  h1 {
+    font-size: clamp(44px, 7vw, 72px); font-weight: 700; margin-top: 24px;
+    text-shadow: 0 0 24px rgba(126, 231, 255, 0.45);
+  }
+  .tagline { font-size: clamp(20px, 3vw, 26px); color: var(--cyan); font-weight: 500; margin-top: 8px; }
+  .sub { font-size: 18px; color: var(--text-2); margin-top: 16px; max-width: 620px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+  .badge-row { margin-top: 32px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .store-badge {
+    display: inline-block; padding: 14px 30px; border-radius: 999px;
+    background: rgba(126, 231, 255, 0.12); border: 2px solid rgba(126, 231, 255, 0.5);
+    color: var(--cyan-light); font-weight: 600; font-size: 18px; text-decoration: none;
+  }
+  .pill {
+    display: inline-block; padding: 8px 18px; border-radius: 999px; font-size: 15px; font-weight: 500;
+    background: rgba(255, 209, 102, 0.12); border: 1.5px solid rgba(255, 209, 102, 0.45); color: var(--gold);
+  }
+
+  .hero-shot { margin: 48px auto 0; max-width: 940px; }
+  .hero-shot img {
+    width: 100%; border-radius: 20px; display: block;
+    border: 2px solid rgba(126, 231, 255, 0.25);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+  }
+
+  section { padding: 72px 0 0; }
+  h2 { font-size: clamp(30px, 4.5vw, 42px); font-weight: 700; text-align: center; }
+  h2 .accent { color: var(--cyan); }
+  .section-sub { text-align: center; color: var(--text-2); font-size: 18px; margin-top: 10px; }
+
+  .planets { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; margin-top: 40px; }
+  .planet {
+    border-radius: 24px; padding: 28px 22px; text-align: center;
+    background: rgba(255, 255, 255, 0.04); border: 2px solid var(--pc, rgba(255,255,255,0.2));
+  }
+  .planet .orb {
+    width: 96px; height: 96px; border-radius: 50%; margin: 0 auto;
+    display: flex; align-items: center; justify-content: center; font-size: 48px;
+    background: radial-gradient(circle at 35% 30%, var(--orb1), var(--orb2));
+  }
+  .planet h3 { margin-top: 18px; font-size: 22px; font-weight: 600; color: var(--pc); }
+  .planet p { margin-top: 8px; color: var(--text-2); font-size: 16px; line-height: 1.5; }
+
+  .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px; }
+  .feature {
+    border-radius: 24px; padding: 28px; background: rgba(255, 255, 255, 0.04);
+    border: 1.5px solid rgba(242, 244, 255, 0.14);
+  }
+  .feature .emoji { font-size: 34px; }
+  .feature h3 { font-size: 21px; font-weight: 600; margin-top: 12px; }
+  .feature p { color: var(--text-2); margin-top: 8px; font-size: 16px; line-height: 1.55; }
+
+  .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 40px; }
+  .shots img {
+    width: 100%; border-radius: 16px; display: block;
+    border: 1.5px solid rgba(126, 231, 255, 0.2);
+  }
+
+  .promise {
+    margin-top: 40px; border-radius: 28px; padding: 40px 32px; text-align: center;
+    background: rgba(126, 240, 195, 0.06); border: 2px solid rgba(126, 240, 195, 0.35);
+  }
+  .promise h2 { color: var(--mint); }
+  .promise ul { list-style: none; margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: center; }
+  .promise li { font-size: 18px; font-weight: 500; }
+  .promise li::before { content: "✓ "; color: var(--mint); font-weight: 700; }
+
+  footer {
+    margin-top: 88px; padding: 40px 24px 48px; text-align: center;
+    border-top: 1px solid rgba(242, 244, 255, 0.1);
+    color: var(--text-3); font-size: 15px; line-height: 2;
+  }
+  footer a { color: var(--cyan); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<main>
+  <header>
+    <img class="icon" src="assets/app-icon.png" alt="Kai Reads app icon — Kai, a smiling kid explorer">
+    <h1>Kai Reads</h1>
+    <p class="tagline">Space Phonics &amp; Reading Fun</p>
+    <p class="sub">Join Kai on a reading adventure across four planets. Sound out words, build spelling,
+    catch sight words, and read stories — with every word spoken aloud.</p>
+    <div class="badge-row">
+      <span class="store-badge">📲 Coming soon to the App&nbsp;Store</span>
+      <span class="pill">iPhone &amp; iPad</span>
+    </div>
+    <div class="hero-shot">
+      <img src="assets/01-galaxy-map.png" alt="Kai's Reading Galaxy — the app's home screen showing Kai and four planets">
+    </div>
+  </header>
+
+  <section>
+    <h2>Four planets. <span class="accent">Four reading skills.</span></h2>
+    <p class="section-sub">Each planet is a bite-sized game built around a skill early readers need.</p>
+    <div class="planets">
+      <div class="planet" style="--pc:#7EE7FF; --orb1:#2FA86F; --orb2:#14563B;">
+        <div class="orb">🦖</div>
+        <h3>Dino Planet</h3>
+        <p>Sound it out — tap each letter to hear its sound, then BLAST the asteroid!</p>
+      </div>
+      <div class="planet" style="--pc:#C792FF; --orb1:#8B6FC7; --orb2:#40306B;">
+        <div class="orb">👻</div>
+        <h3>Haunted Moon</h3>
+        <p>Build words — drag letter tiles into order to spell the word.</p>
+      </div>
+      <div class="planet" style="--pc:#FFD166; --orb1:#C74B4B; --orb2:#5E1F2C;">
+        <div class="orb">🕸️</div>
+        <h3>Web Station</h3>
+        <p>Catch sight words — quick rounds of the words readers know by heart.</p>
+      </div>
+      <div class="planet" style="--pc:#7EF0C3; --orb1:#3E9BC7; --orb2:#1B4460;">
+        <div class="orb">📖</div>
+        <h3>Story Planet</h3>
+        <p>Read a story — short space tales read aloud, line by line.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Stars, stickers &amp; <span class="accent">goals</span></h2>
+    <div class="feature-grid">
+      <div class="feature">
+        <span class="emoji">⭐</span>
+        <h3>Every win earns a star</h3>
+        <p>Earn 5 stars in a game to unlock its collectible sticker in Kai's Sticker Book. Progress syncs to Game Center so it's never lost.</p>
+      </div>
+      <div class="feature">
+        <span class="emoji">🎯</span>
+        <h3>Parent-set daily &amp; weekly goals</h3>
+        <p>Set a star goal in Parent Settings and Kai cheers when it's hit — practice becomes a small, repeatable win instead of open-ended screen time.</p>
+      </div>
+      <div class="feature">
+        <span class="emoji">🗣️</span>
+        <h3>Natural speech, no internet needed</h3>
+        <p>Every word is spoken aloud with on-device voices. Parents can tune speed and pitch, and use Apple's best downloaded voices.</p>
+      </div>
+    </div>
+    <div class="shots">
+      <img src="assets/02-phonics.png" alt="Dino Planet — sounding out the word 'dig' letter by letter">
+      <img src="assets/04-sticker-book.png" alt="Kai's Sticker Book with earned stickers">
+    </div>
+  </section>
+
+  <section>
+    <div class="promise">
+      <h2>The parent promise</h2>
+      <ul>
+        <li>No ads</li>
+        <li>No in-app purchases</li>
+        <li>No accounts or logins</li>
+        <li>No data collection</li>
+        <li>Works offline</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer id="support">
+    <p><strong style="color: var(--text);">Support</strong></p>
+    <p>Questions or ideas? Email <a href="mailto:hibikipr@gmail.com">hibikipr@gmail.com</a></p>
+    <p><a href="privacy.html">Privacy Policy</a></p>
+    <p>Made with ❤️ for Kai — and every kid learning to read.</p>
+  </footer>
+</main>
+<script>
+  const stars = document.getElementById("stars");
+  for (let i = 0; i < 90; i++) {
+    const s = document.createElement("span");
+    s.style.left = Math.random() * 100 + "vw";
+    s.style.top = Math.random() * 100 + "vh";
+    s.style.animationDelay = (Math.random() * 3) + "s";
+    s.style.transform = "scale(" + (0.5 + Math.random()) + ")";
+    stars.appendChild(s);
+  }
+</script>
+</body>
+</html>
