@@ -1,7 +1,7 @@
 # Kai Reads — Website
 
 Marketing site for the Kai Reads app, served by GitHub Pages at
-https://kaireads.townsville.cc (CNAME on the townsville.cc Cloudflare zone).
+https://kaireads.townsville.cc
 
 - `index.html` — landing page (also the App Store "support URL")
 - `privacy.html` — privacy policy (required for the App Store kids category)
