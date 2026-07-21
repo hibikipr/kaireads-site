@@ -4,19 +4,22 @@ Marketing site for the Kai Reads app, served by GitHub Pages at
 [kaireads.townsville.cc](https://kaireads.townsville.cc) (custom domain on the
 `townsville.cc` Cloudflare zone, HTTPS enforced).
 
+**Kai Reads is live on the [App Store](https://apps.apple.com/us/app/kai-reads/id6790004296).**
+
 - `index.html` — landing page (also the App Store **Support URL**)
 - `privacy.html` — privacy policy (required for the App Store kids category, also the App Store **Privacy Policy URL**)
 - `assets/` — app icon + screenshots exported from the app repo's `AppStoreConnect/` folder
 - `CNAME` — pins the custom domain; don't delete unless you mean to detach it (see below)
 
-Plain static HTML/CSS, no build step. Deploys automatically on push to `main`
+Plain static HTML/CSS, no build step. Deploys automatically on merge to `main`
 via GitHub Pages.
 
 ## Updating
 
-Edit `index.html` / `privacy.html` directly and push to `main` — Pages
-rebuilds in under a minute. To refresh a screenshot, re-export it from the
-app repo's `AppStoreConnect/Screenshots/` into `assets/` here.
+Edit `index.html` / `privacy.html` on a branch and open a PR — direct pushes
+to `main` are blocked by a repo ruleset. Once merged, Pages rebuilds in under
+a minute. To refresh a screenshot, re-export it from the app repo's
+`AppStoreConnect/Screenshots/` into `assets/` here.
 
 ## If the HTTPS certificate ever gets stuck
 

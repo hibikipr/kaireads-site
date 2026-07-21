@@ -58,12 +58,7 @@
   }
   .tagline { font-size: clamp(20px, 3vw, 26px); color: var(--cyan); font-weight: 500; margin-top: 8px; }
   .sub { font-size: 18px; color: var(--text-2); margin-top: 16px; max-width: 620px; margin-left: auto; margin-right: auto; line-height: 1.6; }
-  .badge-row { margin-top: 32px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-  .store-badge {
-    display: inline-block; padding: 14px 30px; border-radius: 999px;
-    background: rgba(126, 231, 255, 0.12); border: 2px solid rgba(126, 231, 255, 0.5);
-    color: var(--cyan-light); font-weight: 600; font-size: 18px; text-decoration: none;
-  }
+  .badge-row { margin-top: 32px; display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap; }
   .pill {
     display: inline-block; padding: 8px 18px; border-radius: 999px; font-size: 15px; font-weight: 500;
     background: rgba(255, 209, 102, 0.12); border: 1.5px solid rgba(255, 209, 102, 0.45); color: var(--gold);
@@ -137,7 +132,9 @@
     <p class="sub">Join Kai on a reading adventure across four planets. Sound out words, build spelling,
     catch sight words, and read stories — with every word spoken aloud.</p>
     <div class="badge-row">
-      <span class="store-badge">📲 Coming soon to the App&nbsp;Store</span>
+      <a href="https://apps.apple.com/us/app/kai-reads/id6790004296?itscg=30200&amp;itsct=apps_box_badge&amp;mttnsubad=6790004296" style="display: inline-block;">
+        <img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?releaseDate=1784592000" alt="Download on the App Store" style="width: 246px; height: 82px; vertical-align: middle; object-fit: contain;">
+      </a>
       <span class="pill">iPhone &amp; iPad</span>
     </div>
     <div class="hero-shot">
