@@ -71,6 +71,13 @@
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
   }
 
+  .promo-frame {
+    margin: 40px auto 0; max-width: 940px; border-radius: 20px; overflow: hidden;
+    background: #000; border: 2px solid rgba(126, 231, 255, 0.25);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+  }
+  .promo-frame video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
+
   section { padding: 72px 0 0; }
   h2 { font-size: clamp(30px, 4.5vw, 42px); font-weight: 700; text-align: center; }
   h2 .accent { color: var(--cyan); }
@@ -141,6 +148,17 @@
       <img src="assets/01-galaxy-map.png" alt="Kai's Reading Galaxy — the app's home screen showing Kai and four planets">
     </div>
   </header>
+
+  <section aria-labelledby="promo-heading">
+    <h2 id="promo-heading">See it in <span class="accent">30 seconds</span></h2>
+    <p class="section-sub">A quick look at Kai's reading adventure.</p>
+    <div class="promo-frame">
+      <video controls playsinline preload="none" poster="assets/promo-poster.webp" width="1920" height="1080" aria-label="Kai Reads promo video: sound out words, build spelling, read along with Kai, and earn stars and stickers">
+        <source src="assets/promo.mp4" type="video/mp4">
+        <a href="assets/promo.mp4">Watch the Kai Reads promo video</a>
+      </video>
+    </div>
+  </section>
 
   <section>
     <h2>Four planets. <span class="accent">Four reading skills.</span></h2>
