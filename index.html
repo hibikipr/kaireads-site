@@ -64,11 +64,103 @@
     background: rgba(255, 209, 102, 0.12); border: 1.5px solid rgba(255, 209, 102, 0.45); color: var(--gold);
   }
 
-  .hero-shot { margin: 48px auto 0; max-width: 940px; }
-  .hero-shot img {
-    width: 100%; border-radius: 20px; display: block;
-    border: 2px solid rgba(126, 231, 255, 0.25);
-    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+  /* Playable Dino Planet demo — a real round of the app's phonics game */
+  .mission {
+    position: relative; margin: 48px auto 0; max-width: 940px; overflow: hidden;
+    border-radius: 28px; padding: 28px 24px 26px;
+    background: radial-gradient(ellipse 90% 70% at 50% 0%, rgba(47, 168, 111, 0.16), rgba(10, 15, 46, 0.85) 70%);
+    border: 2px solid rgba(126, 231, 255, 0.3);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55), inset 0 0 60px rgba(126, 231, 255, 0.05);
+  }
+  .mission-tag {
+    display: inline-block; padding: 5px 14px; border-radius: 999px; font-size: 13px; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    background: rgba(126, 240, 195, 0.14); border: 1.5px solid rgba(126, 240, 195, 0.5); color: var(--mint);
+  }
+  .mission h2 { font-size: clamp(24px, 3.6vw, 34px); margin-top: 12px; color: var(--cyan); }
+  .mission .section-sub { font-size: 17px; margin-top: 6px; }
+  .mission-hud { position: absolute; top: 20px; right: 20px; display: flex; gap: 8px; }
+  .mission-hud .chip {
+    padding: 6px 12px; border-radius: 999px; font-weight: 600; font-size: 16px;
+    background: rgba(255, 209, 102, 0.12); border: 1.5px solid rgba(255, 209, 102, 0.5); color: var(--gold);
+  }
+  .mission-hud .chip.pop { animation: chip-pop 0.5s ease; }
+  @keyframes chip-pop { 40% { transform: scale(1.3); } }
+
+  .stage { display: flex; align-items: center; justify-content: center; gap: clamp(16px, 4vw, 40px); margin-top: 28px; min-height: 180px; }
+  .rock-wrap { position: relative; flex: none; }
+  .asteroid {
+    position: relative; width: clamp(110px, 18vw, 170px); aspect-ratio: 1; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: clamp(52px, 8vw, 76px);
+    background: radial-gradient(circle at 35% 30%, #8A8FA8, #4A4F66 60%, #2B2F42);
+    box-shadow: inset -10px -14px 24px rgba(0, 0, 0, 0.45), 0 0 40px rgba(126, 231, 255, 0.12);
+    animation: drift 4s ease-in-out infinite;
+  }
+  @keyframes drift { 50% { transform: translateY(-8px) rotate(3deg); } }
+  .asteroid.boom { animation: boom 0.6s ease-in forwards; }
+  @keyframes boom {
+    30% { transform: scale(1.15); filter: brightness(1.8); }
+    100% { transform: scale(0.2); opacity: 0; filter: brightness(3); }
+  }
+  .spark {
+    position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; border-radius: 50%;
+    pointer-events: none; animation: spark 0.8s ease-out forwards;
+  }
+  @keyframes spark { to { transform: translate(var(--dx), var(--dy)) scale(0.2); opacity: 0; } }
+
+  .tiles { display: flex; gap: clamp(8px, 1.6vw, 14px); }
+  .tile {
+    font: inherit; font-weight: 600; color: var(--text); cursor: pointer;
+    width: clamp(64px, 11vw, 104px); aspect-ratio: 0.88; border-radius: 18px;
+    font-size: clamp(40px, 6.5vw, 64px); line-height: 1;
+    background: rgba(26, 31, 64, 0.9); border: 2.5px solid rgba(242, 244, 255, 0.28);
+    transition: transform 0.15s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  }
+  .tile:hover { transform: translateY(-3px); }
+  .tile:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+  .tile.next { border-color: rgba(126, 231, 255, 0.7); animation: nudge 1.6s ease-in-out infinite; }
+  @keyframes nudge { 50% { box-shadow: 0 0 22px rgba(126, 231, 255, 0.45); } }
+  .tile.done {
+    border-color: var(--mint); background: rgba(126, 240, 195, 0.16); color: var(--mint);
+    box-shadow: 0 0 20px rgba(126, 240, 195, 0.35); animation: none;
+  }
+  .tile.nope { animation: shake 0.4s; }
+  @keyframes shake { 20%, 60% { transform: translateX(-7px); } 40%, 80% { transform: translateX(7px); } }
+
+  .mission-foot { margin-top: 26px; min-height: 64px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .hint { color: var(--text-2); font-size: 18px; }
+  .blast {
+    font: inherit; font-size: 22px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer;
+    padding: 14px 40px; border-radius: 999px; border: none; color: #2A0F00;
+    background: linear-gradient(180deg, #FFE08A, #FF9F43);
+    box-shadow: 0 6px 0 #C4651C, 0 0 36px rgba(255, 159, 67, 0.5);
+    animation: blast-in 0.35s cubic-bezier(.2, 1.6, .4, 1);
+  }
+  .blast:active { transform: translateY(4px); box-shadow: 0 2px 0 #C4651C, 0 0 36px rgba(255, 159, 67, 0.5); }
+  .blast:focus-visible { outline: 3px solid var(--cyan); outline-offset: 4px; }
+  @keyframes blast-in { from { transform: scale(0.4); opacity: 0; } }
+  .progress { color: var(--text-3); font-size: 15px; }
+
+  .win { display: none; text-align: center; padding: 8px 0 4px; }
+  .mission.won .stage, .mission.won .mission-foot, .mission.won .sound-note { display: none; }
+  .mission.won .win { display: block; animation: blast-in 0.45s cubic-bezier(.2, 1.4, .4, 1); }
+  .win .stars-earned { font-size: 54px; letter-spacing: 6px; margin-top: 18px; }
+  .win h3 { font-size: clamp(26px, 4vw, 36px); font-weight: 700; margin-top: 10px; }
+  .win p { color: var(--text-2); font-size: 18px; line-height: 1.55; max-width: 560px; margin: 10px auto 0; }
+  .win .badge-row { margin-top: 22px; }
+  .replay {
+    font: inherit; font-size: 16px; font-weight: 500; cursor: pointer; color: var(--cyan);
+    background: none; border: 1.5px solid rgba(126, 231, 255, 0.45); border-radius: 999px; padding: 9px 18px;
+  }
+  .sound-note { margin-top: 14px; font-size: 14px; color: var(--text-3); }
+
+  @media (max-width: 560px) {
+    .mission { padding: 22px 14px 22px; }
+    .mission-hud { position: static; justify-content: center; margin-bottom: 10px; }
+    .stage { flex-direction: column; gap: 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .asteroid, .tile.next, .stars span { animation: none; }
   }
 
   .promo-frame {
@@ -144,8 +236,32 @@
       </a>
       <span class="pill">iPhone &amp; iPad</span>
     </div>
-    <div class="hero-shot">
-      <img src="assets/01-galaxy-map.png" alt="Kai's Reading Galaxy — the app's home screen showing Kai and four planets">
+    <div class="mission" id="mission" aria-labelledby="mission-heading">
+      <div class="mission-hud"><span class="chip" id="star-chip" aria-live="polite">⭐ 0</span></div>
+      <span class="mission-tag">Play it right here</span>
+      <h2 id="mission-heading">🦖 Dino Planet — Sound it out!</h2>
+      <p class="section-sub">Tap each letter to hear its sound, then BLAST the asteroid!</p>
+      <div class="stage">
+        <div class="rock-wrap" id="rock-wrap" aria-hidden="true"><div class="asteroid" id="asteroid">🪏</div></div>
+        <div class="tiles" id="tiles" role="group" aria-label="Letters to sound out"></div>
+      </div>
+      <div class="mission-foot" id="foot">
+        <p class="hint" id="hint">👆 Tap the letters in order</p>
+        <p class="progress" id="progress">Asteroid 1 of 3</p>
+      </div>
+      <div class="win" aria-live="polite">
+        <div class="stars-earned">⭐⭐⭐</div>
+        <h3>Mission complete!</h3>
+        <p>That's one game on one planet. In the app, Kai's galaxy has four planets of phonics,
+        spelling, sight words and read-aloud stories — plus stickers to collect.</p>
+        <div class="badge-row">
+          <a href="https://apps.apple.com/us/app/kai-reads/id6790004296?itscg=30200&amp;itsct=apps_box_badge&amp;mttnsubad=6790004296" style="display: inline-block;">
+            <img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?releaseDate=1784592000" alt="Download Kai Reads on the App Store" style="width: 246px; height: 82px; vertical-align: middle; object-fit: contain;">
+          </a>
+          <button type="button" class="replay" id="replay">↻ Play again</button>
+        </div>
+      </div>
+      <p class="sound-note">🔊 Turn on sound to hear the letters.</p>
     </div>
   </header>
 
@@ -207,6 +323,7 @@
       </div>
     </div>
     <div class="shots">
+      <img src="assets/01-galaxy-map.png" alt="Kai's Reading Galaxy — the app's home screen showing Kai and four planets">
       <img src="assets/02-phonics.png" alt="Dino Planet — sounding out the word 'dig' letter by letter">
       <img src="assets/04-sticker-book.png" alt="Kai's Sticker Book with earned stickers">
     </div>
@@ -242,6 +359,153 @@
     s.style.transform = "scale(" + (0.5 + Math.random()) + ")";
     stars.appendChild(s);
   }
+
+  // Playable Dino Planet round. Words and letter sounds mirror the app's
+  // kai-content.json and GameContent.defaultPhonemeSounds.
+  (function () {
+    const WORDS = [
+      { word: "dig", emoji: "🪏" },
+      { word: "cat", emoji: "🐱" },
+      { word: "sun", emoji: "☀️" },
+    ];
+    const SOUNDS = {
+      a: "ah", b: "buh", c: "kuh", d: "duh", e: "ebb", f: "fuh", g: "guh", h: "huh",
+      i: "it", j: "juh", k: "kuh", l: "luh", m: "muh", n: "nuh", o: "aw", p: "puh",
+      q: "kwuh", r: "ruh", s: "suh", t: "tuh", u: "uh", v: "vuh", w: "wuh", x: "ecks",
+      y: "yuh", z: "zzz",
+    };
+    const mission = document.getElementById("mission");
+    const rockWrap = document.getElementById("rock-wrap");
+    const asteroid = document.getElementById("asteroid");
+    const tilesEl = document.getElementById("tiles");
+    const foot = document.getElementById("foot");
+    const hint = document.getElementById("hint");
+    const progress = document.getElementById("progress");
+    const starChip = document.getElementById("star-chip");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let round = 0, next = 0, stars = 0, voice = null;
+
+    function pickVoice() {
+      if (!("speechSynthesis" in window)) return;
+      const voices = speechSynthesis.getVoices().filter(v => v.lang && v.lang.startsWith("en"));
+      voice = voices.find(v => /Samantha|Google US English/.test(v.name)) || voices[0] || null;
+    }
+    if ("speechSynthesis" in window) {
+      pickVoice();
+      speechSynthesis.addEventListener("voiceschanged", pickVoice);
+    }
+    function say(text, rate) {
+      if (!("speechSynthesis" in window)) return;
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      if (voice) u.voice = voice;
+      u.rate = rate || 0.85;
+      u.pitch = 1.1;
+      speechSynthesis.speak(u);
+    }
+
+    function setHint(text) {
+      foot.querySelector(".blast")?.remove();
+      hint.hidden = false;
+      hint.textContent = text;
+    }
+
+    function startRound() {
+      const { word, emoji } = WORDS[round];
+      next = 0;
+      asteroid.className = "asteroid";
+      asteroid.textContent = emoji;
+      tilesEl.innerHTML = "";
+      [...word].forEach((letter, i) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "tile" + (i === 0 ? " next" : "");
+        b.textContent = letter;
+        b.setAttribute("aria-label", "Letter " + letter);
+        b.addEventListener("click", () => tap(b, i, letter));
+        tilesEl.appendChild(b);
+      });
+      setHint("👆 Tap the letters in order");
+      progress.textContent = "Asteroid " + (round + 1) + " of " + WORDS.length;
+    }
+
+    function tap(tile, i, letter) {
+      if (tile.classList.contains("done")) { say(SOUNDS[letter] || letter); return; }
+      if (i !== next) {
+        tile.classList.remove("nope");
+        void tile.offsetWidth;
+        tile.classList.add("nope");
+        return;
+      }
+      say(SOUNDS[letter] || letter);
+      tile.classList.remove("next");
+      tile.classList.add("done");
+      next++;
+      const tiles = tilesEl.children;
+      if (next < tiles.length) {
+        tiles[next].classList.add("next");
+        return;
+      }
+      // Every letter sounded out: read the whole word, then arm the blaster.
+      const word = WORDS[round].word;
+      setTimeout(() => say(word, 0.8), 650);
+      hint.hidden = true;
+      const blast = document.createElement("button");
+      blast.type = "button";
+      blast.className = "blast";
+      blast.textContent = "💥 BLAST!";
+      blast.addEventListener("click", fire, { once: true });
+      foot.insertBefore(blast, progress);
+      blast.focus({ preventScroll: true });
+    }
+
+    function fire() {
+      foot.querySelector(".blast")?.remove();
+      stars++;
+      starChip.textContent = "⭐ " + stars;
+      starChip.classList.remove("pop");
+      void starChip.offsetWidth;
+      starChip.classList.add("pop");
+      if (!reduceMotion) burst();
+      asteroid.classList.add("boom");
+      const last = round === WORDS.length - 1;
+      say(last ? "Mission complete! Great reading!" : ["Great job!", "You did it!"][round % 2], 0.95);
+      setTimeout(() => {
+        if (last) {
+          mission.classList.add("won");
+          mission.querySelector(".win a").focus({ preventScroll: true });
+        } else {
+          round++;
+          startRound();
+        }
+      }, 900);
+    }
+
+    function burst() {
+      const colors = ["#FFD166", "#FF9F43", "#7EE7FF", "#FF6B6B", "#7EF0C3"];
+      for (let i = 0; i < 18; i++) {
+        const s = document.createElement("span");
+        s.className = "spark";
+        const angle = (i / 18) * Math.PI * 2;
+        const dist = 70 + Math.random() * 60;
+        s.style.setProperty("--dx", Math.cos(angle) * dist + "px");
+        s.style.setProperty("--dy", Math.sin(angle) * dist + "px");
+        s.style.background = colors[i % colors.length];
+        s.addEventListener("animationend", () => s.remove());
+        rockWrap.appendChild(s);
+      }
+    }
+
+    document.getElementById("replay").addEventListener("click", () => {
+      round = 0; stars = 0;
+      starChip.textContent = "⭐ 0";
+      mission.classList.remove("won");
+      startRound();
+      tilesEl.firstChild.focus({ preventScroll: true });
+    });
+
+    startRound();
+  })();
 </script>
 </body>
 </html>
